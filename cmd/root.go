@@ -37,7 +37,6 @@ to quickly create a Cobra application.`,
 	DisableFlagParsing: true,
 	Args:               cobra.MinimumNArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("ROOT CMD")
 		err := pkg.Run(args)
 		if err != nil {
 			fmt.Println(err)

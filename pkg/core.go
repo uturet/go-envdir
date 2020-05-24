@@ -28,9 +28,7 @@ func Run(args []string) error {
 		return err
 	}
 
-	RunCmd(prog, args, envSlice)
-
-	return nil
+	return RunCmd(prog, args, envSlice)
 }
 
 // Read dir and extract env variables from all *.env files
@@ -55,10 +53,13 @@ func ReadDir(dir string) (envSlice []string, err error) {
 }
 
 // Run command with env variables
-func RunCmd(prog string, args []string, env []string) int {
+func RunCmd(prog string, args []string, env []string) error {
 	cmd := exec.Command(prog, args...)
 	cmd.Env = env
-	return 1
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stdout
+
+	return cmd.Run()
 }
 
 // Read env file
